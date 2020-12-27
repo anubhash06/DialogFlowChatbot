@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+    <data>
+        <variable
+            name="myViewModel"
+            type="com.learn.chatbot.ChatViewModel" />
+    </data>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        tools:context=".MainActivity" >
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/chat_recyclerView"
+            android:padding="6dp"
+            android:layout_above="@id/name_text"
+            android:layout_margin="5dp"
+            />
+
+
+        <EditText
+            android:id="@+id/name_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="15dp"
+            android:layout_marginBottom="5dp"
+            android:ems="10"
+            android:text="@={myViewModel.inputText}"
+            android:hint="Enter your text here"
+            android:inputType="textPersonName"
+            android:layout_above="@id/btn_container"
+            android:textStyle="bold" />
+        <!--   <EditText
+               android:id="@+id/email_text"
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content"
+               android:layout_margin="15dp"
+               android:layout_marginTop="5dp"
+               android:layout_marginBottom="5dp"
+               android:text="@={myViewModel.inputText}"
+               android:ems="10"
+               android:hint="Subscriber's email"
+               android:inputType="textPersonName"
+               android:textStyle="bold" />-->
+
+        <LinearLayout android:id="@+id/btn_container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_alignParentBottom="true">
+
+            <Button
+                android:id="@+id/save_or_update_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@={myViewModel.saveOrUpdateButtonText}"
+                android:onClick="@{()->myViewModel.saveOrUpdate()}"
+                android:textSize="18sp"
+                android:layout_margin="3dp"
+                android:textStyle="bold" />
+
+            <Button
+                android:id="@+id/clear_all_or_delete_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_margin="3dp"
+                android:text="@={myViewModel.clearAllOrDeleteButtonText}"
+                android:onClick="@{()->myViewModel.clearAllOrDelete()}"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+
+        </LinearLayout>
+
+    </RelativeLayout>
+</layout>
