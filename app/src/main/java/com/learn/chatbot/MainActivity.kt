@@ -1,8 +1,8 @@
 package com.learn.chatbot
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -28,8 +28,29 @@ class MainActivity : AppCompatActivity() {
         binding.myViewModel = chatViewModel
         binding.lifecycleOwner = this
         initRecyclerView()
+        initSuggestionRecycleView()
     }
 
+    private fun initSuggestionRecycleView() {
+        binding.suggestionRecyclerView.layoutManager = LinearLayoutManager(
+            applicationContext,
+            LinearLayoutManager.HORIZONTAL,
+            false
+        )
+        val iconsName = listOf(
+            "Hello",
+            "How are you ?",
+            "What is your name ?",
+            "What do you do ?",
+            "Where do you live ?"
+        )
+
+        binding.suggestionRecyclerView.adapter = SuggestionRecyclerViewAdapter(iconsName, {selectedItem: String->onListItemClicked(selectedItem)})
+    }
+
+    private fun onListItemClicked(item: String){
+        chatViewModel.sendMsg(item)
+    }
     private fun initRecyclerView() {
         binding.chatRecyclerView.layoutManager = LinearLayoutManager(this)
         displayChatList()

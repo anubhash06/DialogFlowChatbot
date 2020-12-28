@@ -18,9 +18,17 @@
             android:layout_height="match_parent"
             android:id="@+id/chat_recyclerView"
             android:padding="6dp"
-            android:layout_above="@id/name_text"
+            android:layout_above="@id/suggestion_recycler_view"
             android:layout_margin="5dp"
             />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/suggestion_recycler_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@id/name_text"
+            android:background="@android:color/transparent"
+            android:layout_marginTop="2dp"/>
 
 
         <EditText

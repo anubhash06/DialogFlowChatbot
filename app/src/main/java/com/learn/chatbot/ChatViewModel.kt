@@ -6,7 +6,6 @@ import ai.api.android.AIService
 import ai.api.model.AIRequest
 import ai.api.model.AIResponse
 import android.content.Context
-import android.util.Log
 import androidx.databinding.Bindable
 import androidx.databinding.Observable
 import androidx.lifecycle.MutableLiveData
@@ -16,6 +15,9 @@ import com.learn.chatbot.db.Chat
 import com.learn.chatbot.db.ChatRepository
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
+import java.io.FileInputStream
+import java.io.IOException
+
 
 class ChatViewModel(private val applicationContext: Context, private val repo: ChatRepository) :
     ViewModel(), Observable {
@@ -39,6 +41,25 @@ class ChatViewModel(private val applicationContext: Context, private val repo: C
         clearAllOrDeleteButtonText.value = "Clear Chat"
     }
 
+   /* @Throws(IOException::class)
+    fun authExplicit(jsonPath: String?) {
+        // You can specify a credential file by providing a path to GoogleCredentials.
+        // Otherwise credentials are read from the GOOGLE_APPLICATION_CREDENTIALS environment variable.
+        val credentials: GoogleCredentials = GoogleCredentials.fromStream(FileInputStream(jsonPath))
+            .createScoped(Lists.newArrayList("https://www.googleapis.com/auth/cloud-platform"))
+        val storage: Storage =
+            StorageOptions.newBuilder().setCredentials(credentials).build().getService()
+        println("Buckets:")
+        val buckets: Page<Bucket> = storage.list()
+        for (bucket in buckets.iterateAll()) {
+            System.out.println(bucket.toString())
+        }
+    }*/
+
+    fun sendMsg(msg: String){
+        inputText.value= msg
+        saveOrUpdate()
+    }
     fun saveOrUpdate() {
 
         val config = AIConfiguration(
@@ -46,7 +67,9 @@ class ChatViewModel(private val applicationContext: Context, private val repo: C
             ai.api.AIConfiguration.SupportedLanguages.English,
             AIConfiguration.RecognitionEngine.System
         )
+
         val aiService = AIService.getService(applicationContext, config)
+//        val aiDataService = AIDataService(applicationContext, config)
         val aiRequest = AIRequest()
         aiRequest.setQuery(inputText.value!!)
         try {
