@@ -6,6 +6,7 @@ import ai.api.android.AIService
 import ai.api.model.AIRequest
 import ai.api.model.AIResponse
 import android.content.Context
+import android.text.TextUtils
 import androidx.databinding.Bindable
 import androidx.databinding.Observable
 import androidx.lifecycle.MutableLiveData
@@ -62,6 +63,8 @@ class ChatViewModel(private val applicationContext: Context, private val repo: C
     }
     fun saveOrUpdate() {
 
+        if(TextUtils.isEmpty(inputText.value))
+            return;
         val config = AIConfiguration(
             "63058a6473684d349ff9dffa98d8f31d",
             ai.api.AIConfiguration.SupportedLanguages.English,

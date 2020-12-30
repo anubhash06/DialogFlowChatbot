@@ -52,7 +52,9 @@ class MainActivity : AppCompatActivity() {
         chatViewModel.sendMsg(item)
     }
     private fun initRecyclerView() {
-        binding.chatRecyclerView.layoutManager = LinearLayoutManager(this)
+        var linearLayoutManager: LinearLayoutManager = LinearLayoutManager(this)
+        linearLayoutManager.stackFromEnd=true
+        binding.chatRecyclerView.layoutManager = linearLayoutManager
         displayChatList()
     }
 
